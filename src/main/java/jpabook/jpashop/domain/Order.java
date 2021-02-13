@@ -27,7 +27,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) // 기본이 LAZY! EAGER X!!, persist(order)만 해주면 item 들 먼저 저장해주고 해줌 (연쇄적)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY) // 주로 Order 를 더 많이 access 하기 때문에!
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // 주로 Order 를 더 많이 access 하기 때문에!
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
