@@ -57,4 +57,17 @@ public class OrderRepository {
         }
         return query.getResultList();
     }
+
+    /**
+     * OrderRepository fetch join 추가 코드
+     * Order를 조회하는데 1번 쿼리로 member, delivery LAZY 다 무시하고 값을 다 채워서 가져옴!
+     * @return
+     */
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class)
+                .getResultList();
+    }
 }
