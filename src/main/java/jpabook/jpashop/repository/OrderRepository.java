@@ -62,6 +62,8 @@ public class OrderRepository {
      * OrderRepository fetch join 추가 코드
      * Order를 조회하는데 1번 쿼리로 member, delivery LAZY 다 무시하고 값을 다 채워서 가져옴!
      * @return
+     *
+     * 기본적으로 LAZY로 깔고 fetch join 으로 한번에 가지고 오는 게 좋다!! (대부분의 성능 문제가 해결된다.)
      */
     public List<Order> findAllWithMemberDelivery() {
         return em.createQuery(

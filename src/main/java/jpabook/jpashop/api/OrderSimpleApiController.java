@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.util.stream.Collectors.toList;
 /**
  *
@@ -76,6 +78,7 @@ public class OrderSimpleApiController {
                 .collect(toList());
         return result;
     }
+
     @Data
     static class SimpleOrderDto {
         private Long orderId;
