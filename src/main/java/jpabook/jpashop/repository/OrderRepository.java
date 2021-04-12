@@ -72,4 +72,25 @@ public class OrderRepository {
                         " join fetch o.delivery d", Order.class)
                 .getResultList();
     }
+
+    /**
+     * fetch join
+     *
+     * Order 가 중복되서 또 나옴! OrderItem 개수만큼 뻥튀기 되서 나옴!
+     * 의도했던 것과 다른 결과가 나옴..
+     * distinct 의 기능
+     * 1. DB에 distinct를 날려준다.
+     * 2. entity가 중복인 경우에 그 중복을 걸러서 Collection에 담아준다!!!
+     * 1 : 다를 fetch join 하면.. paging이 불가능해진다!!! => paging 처리를 메모리에 다 올려서
+     * 하기 떄문에 out of memory 가 날 수 있는 위험이 있다!!! 정말 위험함!!
+     */
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d" +
+                        " join fetch o.orderItems oi" +
+                        " join fetch oi.item i", Order.class)
+                .getResultList();
+    }
 }
